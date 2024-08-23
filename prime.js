@@ -10,42 +10,77 @@ let clickUpgrades = [
   },
   {
     title: 'cutter',
-    price: 90,
+    price: 70,
+    quantity: 0,
+    bonus: 5,
+  },
+  {
+    title: 'slicer',
+    price: 150,
     quantity: 0,
     bonus: 10,
+  },
+  {
+    title: 'sword',
+    price: 250,
+    quantity: 0,
+    bonus: 15,
   },
 ];
 
 let automaticUpgrades = [
   {
-    title: 'drill',
-    price: 400,
+    title: 'jackhammer',
+    price: 100,
     quantity: 0,
-    bonus: 15,
+    bonus: 10,
+  },
+  {
+    title: 'drill',
+    price: 150,
+    quantity: 0,
+    bonus: 30,
   },
   {
     title: 'laser',
+    price: 300,
+    quantity: 0,
+    bonus: 50,
+  },
+  {
+    title: 'laser-upgrade',
     price: 700,
     quantity: 0,
-    bonus: 90,
+    bonus: 130,
   },
 ];
 
+updateCrystalInfo();
+
 // ANCHOR Acquire HTML Elements
 const crystal = document.getElementById('Crystal');
+// NOTE Click
 const pickaxe = document.getElementById('pickaxe');
 const cutter = document.getElementById('cutter');
+const slicer = document.getElementById('slicer');
+const sword = document.getElementById('sword');
+// NOTE Automatic
+const jackhammer = document.getElementById('jackhammer');
 const drill = document.getElementById('drill');
 const laser = document.getElementById('laser');
+const laserUpgrade = document.getElementById('laser-upgrade');
 
 // NOTE Events
 crystal.addEventListener('click', () => mineCrystal());
 pickaxe.addEventListener('click', () => purchaseTool('pickaxe'));
 cutter.addEventListener('click', () => purchaseTool('cutter'));
-drill.addEventListener('click', () => purchaseSpecialTool('drill'));
-laser.addEventListener('click', () => purchaseSpecialTool('laser'));
+slicer.addEventListener('click', () => purchaseTool('slicer'));
+sword.addEventListener('click', () => purchaseTool('sword'));
 
-updateCrystalInfo();
+jackhammer.addEventListener('click', () => purchaseTool('jackhammer'));
+drill.addEventListener('click', () => purchaseTool('drill'));
+laser.addEventListener('click', () => purchaseTool('laser'));
+laserUpgrade.addEventListener('click', () => purchaseTool('laser-upgrade'));
 
 // REVIEW Requires the most work
 // NOTE Update DOM
@@ -66,13 +101,13 @@ function updateCrystalInfo() {
 
   crystalCounter.textContent = crystals;
   clickUpgrades.forEach((tool) => {
-    clickStatsElem.innerHTML += `<p>${tool.quantity} ${tool.title} -> ${tool.bonus}</p>`;
+    clickStatsElem.innerHTML += `<p>${tool.quantity} ${tool.title} -> ${tool.quantity * tool.bonus}</p>`;
     clickPower += tool.quantity * tool.bonus;
   });
   clickCounter.textContent = clickPower;
 
   automaticUpgrades.forEach((tool) => {
-    automaticStatsElem.innerHTML += `<p>${tool.quantity} ${tool.title} -> ${tool.bonus}</p>`;
+    automaticStatsElem.innerHTML += `<p>${tool.quantity} ${tool.title} -> ${tool.quantity * tool.bonus}</p>`;
     automaticPower += tool.quantity * tool.bonus;
   });
   automaticCounter.textContent = automaticPower;
@@ -87,21 +122,23 @@ function mineCrystal() {
   updateCrystalInfo();
 }
 
-// NOTE Purchase Tool
+// ANCHOR Purchase Tools
 function purchaseTool(specificTool) {
+  // NOTE Checks if tool can be purchased
   clickUpgrades.forEach((tool) => {
     if (tool.title === specificTool && crystals >= tool.price) {
       ++tool.quantity;
+      tool.price * 2;
       crystals -= tool.price;
       updateCrystalInfo();
     }
   });
-}
 
-function purchaseSpecialTool(specificTool) {
+  // NOTE Checks if special tool can be purchased
   automaticUpgrades.forEach((specialTool) => {
     if (specialTool.title === specificTool && crystals >= specialTool.price) {
       ++specialTool.quantity;
+      specialTool.price * 2;
       crystals -= specialTool.price;
       updateCrystalInfo();
     }

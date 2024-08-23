@@ -30,56 +30,85 @@
       <!-- SECTION Game -->
       <section class="row justify-content-center text-light mt-3">
         <!-- NOTE Game Counters -->
-        <div class="col-7">
+        <div class="col-5">
           <div class="row">
-            <div class="col-3 bg-warning">
+            <div class="col-6 col-md-3 bg-warning order-2 order-md-1">
               <div class="d-flex justify-content-between">
-                <label>+<span id="click-counter">1</span></label>
-                <label>👆</label>
+                <label class="fs-4">+<span id="click-counter">1</span></label>
+                <label class="fs-3">👆</label>
               </div>
             </div>
 
-            <div class="col-6 bg-dark text-light">
-              <div class="d-flex justify-content-between">
-                <label>💎</label>
-                <label id="crystal-counter">0</label>
+            <div class="col-md-6 bg-dark text-light order-1 order-md-2">
+              <div class="d-flex flex-column align-items-center">
+                <label class="fs-1">💎</label>
+                <label class="fs-4" id="crystal-counter">0</label>
               </div>
             </div>
 
-            <div class="col-3 bg-warning">
+            <div class="col-6 col-md-3 bg-warning order-3">
               <div class="d-flex justify-content-between">
-                <label>🕗</label>
-                <label>+<span id="automatic-counter">0</span></label>
+                <label class="fs-3">🕗</label>
+                <label class="fs-4">+<span id="automatic-counter">0</span></label>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- NOTE Game Upgrades & Stats -->
+        <!-- NOTE Gameplay -->
         <div class="row justify-content-center text-light text-center mt-1">
           <div class="col-11">
             <div class="row">
-              <div class="col-6 bg-dark">
+              <!-- NOTE Upgrades -->
+              <div class="col-md-6 bg-dark">
                 <div class="d-flex justify-content-between">
                   <div>
                     <h3>Click Upgrades</h3>
-                    <button id="pickaxe" class="btn btn-info" type="button">30 ⛏️</button>
-                    <p>Pickaxe +1</p>
-
-                    <button id="cutter" class="btn btn-info" type="button">90 🔪</button>
-                    <p>Cutter +10</p>
+                    <div class="row">
+                      <div class="col-6 col-md-4">
+                        <button id="pickaxe" class="btn btn-info" type="button">30 ⛏️</button>
+                        <p>Pickaxe +1</p>
+                      </div>
+                      <div class="col-6 col-md-4">
+                        <button id="cutter" class="btn btn-info" type="button">70 🔪</button>
+                        <p>Cutter +5</p>
+                      </div>
+                      <div class="col-6 col-md-4">
+                        <button id="slicer" class="btn btn-info" type="button">150 🪓</button>
+                        <p>Slicer +10</p>
+                      </div>
+                      <div class="col-6 col-md-4">
+                        <button id="sword" class="btn btn-info" type="button">250 🗡</button>
+                        <p>Sword +15</p>
+                      </div>
+                    </div>
                   </div>
                   <div>
                     <h3>Automatic Upgrades</h3>
-                    <button id="drill" class="btn btn-info" type="button">400 <i class="fa-sharp fa-solid fa-gear fa-lg" style="color: #61a3e4"></i></button>
-                    <p>Drill +15</p>
-
-                    <button id="laser" class="btn btn-info" type="button">700 💥</button>
-                    <p>Laser +90</p>
+                    <div class="row">
+                      <div class="col-6 col-md-4">
+                        <button id="jackhammer" class="btn btn-info" type="button">100 <i class="fa-sharp fa-solid fa-gear fa-lg" style="color: #61a3e4"></i></button>
+                        <p>JackHammer +10</p>
+                      </div>
+                      <div class="col-6 col-md-4">
+                        <button id="drill" class="btn btn-info" type="button">150 💥</button>
+                        <p>Drill +30</p>
+                      </div>
+                      <div class="col-6 col-md-4">
+                        <button id="laser" class="btn btn-info" type="button">300 💥</button>
+                        <p>Laser +50</p>
+                      </div>
+                      <div class="col-6 col-md-4">
+                        <button id="laser-upgrade" class="btn btn-info" type="button">700 💥</button>
+                        <p>Laser Upgrade +130</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-6 bg-dark">
+
+              <!-- NOTE Stats -->
+              <div class="col-md-6 bg-dark">
                 <div class="d-flex justify-content-between">
                   <div>
                     <h3>Click Stats</h3>
