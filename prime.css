@@ -1,0 +1,19 @@
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  background-image: url(images/crystals.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.crystal {
+  max-width: fit-content;
+  height: 16rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
