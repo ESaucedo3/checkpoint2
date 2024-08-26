@@ -1,124 +1,140 @@
-// NOTE Global
+// ANCHOR Global
 let crystals = 0;
+let totalCrystals = 0;
 
+// ANCHOR Upgrades
 let clickUpgrades = [
   {
-    title: 'pickaxe',
+    title: 'Pickaxe',
     price: 30,
     quantity: 0,
     bonus: 1,
   },
   {
-    title: 'cutter',
+    title: 'Cutter',
     price: 70,
     quantity: 0,
     bonus: 5,
   },
   {
-    title: 'slicer',
+    title: 'Slicer',
     price: 150,
     quantity: 0,
     bonus: 10,
-  },
-  {
-    title: 'sword',
-    price: 250,
-    quantity: 0,
-    bonus: 15,
   },
 ];
 
 let automaticUpgrades = [
   {
-    title: 'jackhammer',
+    title: 'Jackhammer',
     price: 100,
     quantity: 0,
     bonus: 10,
   },
   {
-    title: 'drill',
+    title: 'Drill',
     price: 150,
     quantity: 0,
     bonus: 30,
   },
   {
-    title: 'laser',
+    title: 'Laser',
     price: 300,
     quantity: 0,
     bonus: 50,
   },
-  {
-    title: 'laser-upgrade',
-    price: 700,
-    quantity: 0,
-    bonus: 130,
-  },
 ];
 
-updateCrystalInfo();
+// NOTE Load Upgrades before using them
+loadUpgrades();
 
 // ANCHOR Acquire HTML Elements
 const crystal = document.getElementById('Crystal');
+
 // NOTE Click
-const pickaxe = document.getElementById('pickaxe');
-const cutter = document.getElementById('cutter');
-const slicer = document.getElementById('slicer');
-const sword = document.getElementById('sword');
+const pickaxe = document.getElementById('Pickaxe');
+const cutter = document.getElementById('Cutter');
+const slicer = document.getElementById('Slicer');
+
 // NOTE Automatic
-const jackhammer = document.getElementById('jackhammer');
-const drill = document.getElementById('drill');
-const laser = document.getElementById('laser');
-const laserUpgrade = document.getElementById('laser-upgrade');
+const jackhammer = document.getElementById('Jackhammer');
+const drill = document.getElementById('Drill');
+const laser = document.getElementById('Laser');
 
 // NOTE Events
 crystal.addEventListener('click', () => mineCrystal());
-pickaxe.addEventListener('click', () => purchaseTool('pickaxe'));
-cutter.addEventListener('click', () => purchaseTool('cutter'));
-slicer.addEventListener('click', () => purchaseTool('slicer'));
-sword.addEventListener('click', () => purchaseTool('sword'));
+pickaxe.addEventListener('click', () => purchaseTool('Pickaxe'));
+cutter.addEventListener('click', () => purchaseTool('Cutter'));
+slicer.addEventListener('click', () => purchaseTool('Slicer'));
 
-jackhammer.addEventListener('click', () => purchaseTool('jackhammer'));
-drill.addEventListener('click', () => purchaseTool('drill'));
-laser.addEventListener('click', () => purchaseTool('laser'));
-laserUpgrade.addEventListener('click', () => purchaseTool('laser-upgrade'));
+jackhammer.addEventListener('click', () => purchaseTool('Jackhammer'));
+drill.addEventListener('click', () => purchaseTool('Drill'));
+laser.addEventListener('click', () => purchaseTool('Laser'));
 
-// REVIEW Requires the most work
-// NOTE Update DOM
+// NOTE Load everything needed
+updateCrystalInfo();
+
+// ANCHOR Load Click & Automatic Upgrades
+function loadUpgrades() {
+  const clickUpgradesElem = document.getElementById('click-upgrades');
+  clickUpgrades.forEach((tool) => {
+    clickUpgradesElem.innerHTML += `<div class="col-md-6">
+                                      <button id="${tool.title}" class="click-price btn btn-info" type="button">${tool.price}💎</button>
+                                      <p>${tool.title} +${tool.bonus}</p>
+                                    </div>`;
+  });
+
+  const automaticUpgradesElem = document.getElementById('automatic-upgrades');
+  automaticUpgrades.forEach((tool) => {
+    automaticUpgradesElem.innerHTML += `<div class="col-md-6">
+                                          <button id="${tool.title}" class="automatic-price btn btn-info" type="button">${tool.price}💎</button>
+                                          <p>${tool.title} +${tool.bonus}</p>
+                                        </div>`;
+  });
+}
+
+// ANCHOR Update DOM
 function updateCrystalInfo() {
-  let clickPower = 0;
+  let clickPower = 1;
   let automaticPower = 0;
 
-  ++clickPower;
-
   const crystalCounter = document.getElementById('crystal-counter');
+  const totalCrystalCounter = document.getElementById('total-counter');
   const clickCounter = document.getElementById('click-counter');
   const automaticCounter = document.getElementById('automatic-counter');
+
   const clickStatsElem = document.getElementById('click-stats');
   const automaticStatsElem = document.getElementById('automatic-stats');
-
   clickStatsElem.innerHTML = '';
   automaticStatsElem.innerHTML = '';
 
-  crystalCounter.textContent = crystals;
   clickUpgrades.forEach((tool) => {
-    clickStatsElem.innerHTML += `<p>${tool.quantity} ${tool.title} -> ${tool.quantity * tool.bonus}</p>`;
+    clickStatsElem.innerHTML += `<p>${tool.quantity} ${tool.title} <i class="fa-solid fa-arrow-right fa-lg" style="color: #3ecfff;"></i> ${tool.quantity * tool.bonus}</p>`;
     clickPower += tool.quantity * tool.bonus;
   });
-  clickCounter.textContent = clickPower;
 
   automaticUpgrades.forEach((tool) => {
-    automaticStatsElem.innerHTML += `<p>${tool.quantity} ${tool.title} -> ${tool.quantity * tool.bonus}</p>`;
+    automaticStatsElem.innerHTML += `<p>${tool.quantity} ${tool.title} <i class="fa-solid fa-arrow-right fa-lg" style="color: #3ecfff;"></i> ${tool.quantity * tool.bonus}</p>`;
     automaticPower += tool.quantity * tool.bonus;
   });
+
+  crystalCounter.textContent = crystals;
+  totalCrystalCounter.textContent = totalCrystals;
+  clickCounter.textContent = clickPower;
   automaticCounter.textContent = automaticPower;
 }
 
-// NOTE Click Crystal
+// ANCHOR Manually Collect Crystals
 function mineCrystal() {
   ++crystals;
+  ++totalCrystals;
+
   clickUpgrades.forEach((tool) => {
-    crystals += tool.quantity * tool.bonus;
+    let bonusCrystals = tool.quantity * tool.bonus;
+    crystals += bonusCrystals;
+    totalCrystals += bonusCrystals;
   });
+
   updateCrystalInfo();
 }
 
@@ -128,8 +144,10 @@ function purchaseTool(specificTool) {
   clickUpgrades.forEach((tool) => {
     if (tool.title === specificTool && crystals >= tool.price) {
       ++tool.quantity;
-      tool.price * 2;
       crystals -= tool.price;
+      tool.price *= 2;
+      let actualTool = document.getElementById(specificTool);
+      actualTool.textContent = `${tool.price}💎`;
       updateCrystalInfo();
     }
   });
@@ -138,17 +156,23 @@ function purchaseTool(specificTool) {
   automaticUpgrades.forEach((specialTool) => {
     if (specialTool.title === specificTool && crystals >= specialTool.price) {
       ++specialTool.quantity;
-      specialTool.price * 2;
       crystals -= specialTool.price;
+      specialTool.price *= 2;
+      let actualTool = document.getElementById(specificTool);
+      actualTool.textContent = `${specialTool.price}💎`;
       updateCrystalInfo();
     }
   });
 }
 
+// ANCHOR Automatically Collect Resources
 function collectAutoUpgrades() {
   automaticUpgrades.forEach((specialTool) => {
-    crystals += specialTool.quantity * specialTool.bonus;
+    let bonusCrystals = specialTool.quantity * specialTool.bonus;
+    crystals += bonusCrystals;
+    totalCrystals += bonusCrystals;
   });
+
   updateCrystalInfo();
 }
 

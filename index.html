@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Ore Miner</title>
+    <title>Crystal Miner</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -21,32 +21,43 @@
   <body>
     <!-- ANCHOR Main -->
     <main class="container-fluid">
-      <!-- NOTE Crystal -->
+      <!-- NOTE Gameplay -->
       <div class="d-flex flex-column align-items-center mt-1">
-        <h1 class="text-light bg-dark p-1">Crystal Miner</h1>
+        <h1 class="text-light bg-dark border border-2 border-info crystal-text p-2">Crystal Miner</h1>
         <img id="Crystal" class="crystal" src="images/crystal.png" alt="Crystal" />
       </div>
 
-      <!-- SECTION Game -->
-      <section class="row justify-content-center text-light mt-3">
-        <!-- NOTE Game Counters -->
-        <div class="col-5">
+      <!-- SECTION Game Counters -->
+      <section class="row justify-content-center text-light mt-5">
+        <div class="col-6">
           <div class="row">
-            <div class="col-6 col-md-3 bg-warning order-2 order-md-1">
+            <!-- NOTE Click Counter -->
+            <div class="col-6 col-md-3 order-2 order-md-1 bg-dark border border-1 border-warning rounded">
               <div class="d-flex justify-content-between">
                 <label class="fs-4">+<span id="click-counter">1</span></label>
                 <label class="fs-3">👆</label>
               </div>
             </div>
 
-            <div class="col-md-6 bg-dark text-light order-1 order-md-2">
-              <div class="d-flex flex-column align-items-center">
-                <label class="fs-1">💎</label>
-                <label class="fs-4" id="crystal-counter">0</label>
+            <!-- NOTE Crystal Counter -->
+            <div class="col-md-6 bg-dark text-light order-1 order-md-2 border border-2 border-info rounded">
+              <div class="d-flex justify-content-evenly">
+                <div class="fs-4 text-center">
+                  <p class="mb-0">Current</p>
+                  <p class="fs-1">💎</p>
+                  <p class="mb-0" id="crystal-counter">0</p>
+                </div>
+
+                <div class="fs-4 text-center">
+                  <p class="mb-0">Collected</p>
+                  <p class="fs-1">💎</p>
+                  <p class="mb-0" id="total-counter">0</p>
+                </div>
               </div>
             </div>
 
-            <div class="col-6 col-md-3 bg-warning order-3">
+            <!-- NOTE Automatic Counter -->
+            <div class="col-6 col-md-3 order-3 bg-dark rounded border border-1 border-warning rounded">
               <div class="d-flex justify-content-between">
                 <label class="fs-3">🕗</label>
                 <label class="fs-4">+<span id="automatic-counter">0</span></label>
@@ -54,73 +65,36 @@
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- NOTE Gameplay -->
-        <div class="row justify-content-center text-light text-center mt-1">
-          <div class="col-11">
-            <div class="row">
-              <!-- NOTE Upgrades -->
-              <div class="col-md-6 bg-dark">
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <h3>Click Upgrades</h3>
-                    <div class="row">
-                      <div class="col-6 col-md-4">
-                        <button id="pickaxe" class="btn btn-info" type="button">30 ⛏️</button>
-                        <p>Pickaxe +1</p>
-                      </div>
-                      <div class="col-6 col-md-4">
-                        <button id="cutter" class="btn btn-info" type="button">70 🔪</button>
-                        <p>Cutter +5</p>
-                      </div>
-                      <div class="col-6 col-md-4">
-                        <button id="slicer" class="btn btn-info" type="button">150 🪓</button>
-                        <p>Slicer +10</p>
-                      </div>
-                      <div class="col-6 col-md-4">
-                        <button id="sword" class="btn btn-info" type="button">250 🗡</button>
-                        <p>Sword +15</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <h3>Automatic Upgrades</h3>
-                    <div class="row">
-                      <div class="col-6 col-md-4">
-                        <button id="jackhammer" class="btn btn-info" type="button">100 <i class="fa-sharp fa-solid fa-gear fa-lg" style="color: #61a3e4"></i></button>
-                        <p>JackHammer +10</p>
-                      </div>
-                      <div class="col-6 col-md-4">
-                        <button id="drill" class="btn btn-info" type="button">150 💥</button>
-                        <p>Drill +30</p>
-                      </div>
-                      <div class="col-6 col-md-4">
-                        <button id="laser" class="btn btn-info" type="button">300 💥</button>
-                        <p>Laser +50</p>
-                      </div>
-                      <div class="col-6 col-md-4">
-                        <button id="laser-upgrade" class="btn btn-info" type="button">700 💥</button>
-                        <p>Laser Upgrade +130</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <!-- SECTION Gameplay Info -->
+      <section class="row justify-content-center text-light mt-3">
+        <!-- NOTE Upgrades -->
+        <div class="col-md-5 bg-dark border border-2 border-info rounded p-3">
+          <div class="row justify-content-between">
+            <div class="col-5 text-center">
+              <h3>Click Upgrades</h3>
+              <div id="click-upgrades" class="row"></div>
+            </div>
 
-              <!-- NOTE Stats -->
-              <div class="col-md-6 bg-dark">
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <h3>Click Stats</h3>
-                    <div id="click-stats"></div>
-                  </div>
+            <div class="col-5 text-center">
+              <h3>Automatic Upgrades</h3>
+              <div id="automatic-upgrades" class="row"></div>
+            </div>
+          </div>
+        </div>
 
-                  <div>
-                    <h3>Automatic Stats</h3>
-                    <div id="automatic-stats"></div>
-                  </div>
-                </div>
-              </div>
+        <!-- NOTE Stats -->
+        <div class="col-md-5 bg-dark border border-2 border-info rounded p-3 ms-0 ms-md-3 mt-3 mt-md-0">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3>Click Stats</h3>
+              <div id="click-stats"></div>
+            </div>
+
+            <div>
+              <h3>Automatic Stats</h3>
+              <div id="automatic-stats"></div>
             </div>
           </div>
         </div>
